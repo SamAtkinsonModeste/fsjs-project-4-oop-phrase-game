@@ -1,18 +1,36 @@
 /* Main styles */
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700&Roboto:300');
 
+@font-face {
+  font-family: 'Harry P';
+  src: url('../harry-potter-webFont/HarryP.eot');
+  src: url('../harry-potter-webFont/HarryP.eot?#iefix') format('embedded-opentype'),
+    url('../harry-potter-webFont/HarryP.woff2') format('woff2'),
+    url('../harry-potter-webFont/HarryP.woff') format('woff'),
+    url('../harry-potter-webFont/HarryP.ttf') format('truetype'),
+    url('../harry-potter-webFont/HarryP.svg#HarryP') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+
 /* Variables */
 
 :root {
-  --color-win: #78CF82;
-  --color-lose: #D94545;
+  --color-win: #fae102;
+  --color-dark-win: #a57a02;
+  --color-lose: #e20606;
   --color-start: #5b85b7;
-  --color-neutral: #445069;
+  --color-dark-blue: #101e2e;
   --color-neutral-light: #D2D2D2;
   --color-keys: #37474F;
+  --color-white: #f3f4ee;
   --color-keys-light: #E5E5E5;
-  --font-size-large: 60px;
-  --font-size-medium: 20px;
+  --color-chosen: #07d999;
+  --text-upper-case: uppercase;
+  --font-size-large: 4rem;
+  --font-size-medium: 2.5rem;
   --transition: all .2s ease-in-out;
 }
 
@@ -20,7 +38,8 @@
 
 * {
   box-sizing: border-box;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Open Sans', sans-serif;
+  font-family: 'Harry P', cursive;
 }
 
 body {
@@ -28,23 +47,31 @@ body {
   flex-direction: column;
   display: flex;
   height: 100vh;
+  background: #000;
+  text-transform: var(--text-upper-case);
 }
 
-li, ol, ul {
+li,
+ol,
+ul {
   padding: 0;
   display: inline-block;
 }
 
 h2 {
   margin: 0;
-  text-transform: uppercase;
   font-size: var(--font-size-large);
-  margin: 0;
+  letter-spacing: 8px;
 }
 
 h1 {
   font-size: 30px;
 }
+
+span {
+  display: block;
+}
+
 
 button {
   margin: 6px;
@@ -52,8 +79,10 @@ button {
   padding: .5rem 1rem;
   color: var(--color-keys);
   font-size: var(--font-size-medium);
+  text-shadow: 0 1px 2px #000;
   background-color: var(--color-keys-light);
   border-radius: 5px;
+  box-shadow: inset -1px 0 3px rgb(1, 12, 78);
   -webkit-transition: var(--transition);
   -o-transition: var(--transition);
   transition: var(--transition);
@@ -61,8 +90,24 @@ button {
 }
 
 #btn__reset {
-	width: 200px;
-	margin: 0 auto;
+  width: 200px;
+  padding: 10px 7px;
+  margin: 0 auto;
+  background: #002528;
+  color: var(--color-white);
+  box-shadow: inset 0 0 7px 2px #e1eef4;
+  font-size: 40px;
+  text-shadow: 0 2px 2px #010806;
+  border: solid #010806 2px;
+  letter-spacing: 0.200rem;
+}
+
+#btn__reset:active {
+  background: #e1dfdf;
+  color: #001517;
+  box-shadow: inset 0 0 7px 2px #002528;
+  text-shadow: 0 2px 2px var(--color-win);
+
 }
 
 .main-container {
@@ -72,6 +117,9 @@ button {
   height: 100%;
   max-height: 900px;
   text-align: center;
+  background: linear-gradient(rgb(0, 0, 0, 0.2), rgba(0, 0, 0, 0)),
+    url(../images/harry-war.jpg) no-repeat center top;
+  background-size: 100% 75%;
 }
 
 .section {
@@ -79,29 +127,68 @@ button {
   padding: 10px;
 }
 
-#phrase ul li{
-  margin-top: 15px;
-}
+
 
 /* Title */
 
 .header {
-  color: #3a3f58;
+  color: var(--color-start);
+  text-shadow: 2px 2px 3px var(--color-white);
+  letter-spacing: 0.158em;
+  padding-top: 0.158em;
 }
 
 
 /* Phrase */
+span {
+  height: 70px;
+  width: 70px;
+  padding: 1px 0 0 1px;
 
-.letter {
-  font-size: var(--font-size-medium);
-  height: 65px;
-  width: 65px;
-  padding: 20px 1px 0 1px;
-  margin-right: 2px;
-  color: transparent;
-  background: var(--color-neutral-light);
-  border-radius: 5px;
 }
+
+span.box {
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 1s ease-out;
+  height: 70px;
+  width: 70px;
+  margin-right: 2px;
+  border-radius: 5px;
+  z-index: 100;
+  box-shadow: 1px 1px 1px 2px #000;
+}
+
+
+
+
+span.front,
+span.letter {
+  position: absolute;
+  bottom: 0;
+  text-align: center;
+  font-size: 4em;
+  height: 70px;
+  width: 70px;
+  color: pink;
+  border: solid 1px var(--color-win);
+  background: rgba(225, 225, 225, .7);
+  border-radius: 5px;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  box-shadow: 1px 1px 1px 2px #000;
+}
+
+span.letter {
+  transform: rotateX(-180deg);
+  color: transparent;
+  padding-bottom: 1px;
+  background: rgba(18, 15, 59, .7);
+}
+
+
+
+
 
 .space {
   width: 15px;
@@ -110,16 +197,12 @@ button {
 
 
 .show {
-  color: #fff;
-  background-color: #4ac0d5;
-  font-size: 20px;
-  height: 65px;
-  width: 65px;
-  padding: 20px 1px 0 1px;
-  margin-right: 2px;
-  border-radius: 5px;
-  -webkit-animation-duration: .5s;
-  animation-duration: .5s;
+  transform: rotate3d(1, 0, 0, 180deg);
+}
+
+.show span.letter {
+  color: var(--color-win);
+  text-shadow: 0 2px 1px var(--color-dark-win);
 }
 
 
@@ -131,33 +214,20 @@ button {
 }
 
 .chosen {
-  background: #3a3f58;
-  border-radius: 5px;
-  font-size: var(--font-size-medium);
-  color: #FFFFFF;
+  background: var(--color-chosen);
+  box-shadow: inset -1px 0 3px rgb(1, 12, 78);
+  color: var(--color-white);
 }
 
 .wrong {
-  background: #f7a964;
-  color: #FFFFFF;
+  background: var(--color-lose);
+  box-shadow: inset -1px 0 3px rgb(1, 12, 78);
+  color: var(--color-white);
 }
 
-.btn__reset {
-  padding: 16px;
-  margin: 50px auto;
-  background: #f7a964;
-  border-radius: 5px;
-  font-size: 20px;
-  cursor: pointer;
-  border-bottom: solid 4px rgba(0, 0, 0, .3);
-  border-right: solid 3px rgba(0, 0, 0, .3)
-}
 
-.btn__reset:active {
-  padding: 14px 16px 16px 14px;
-  border-bottom: solid 4px rgba(0, 0, 0, 0);
-  border-right: solid 3px rgba(0, 0, 0, 0);
-}
+
+
 
 
 /* Overlay */
@@ -166,7 +236,7 @@ button {
   display: flex;
   flex-direction: column;
   position: fixed;
-  color: #FFFFFF;
+  color: var(--color-white);
   justify-content: center;
   top: 0;
   bottom: 0;
@@ -176,29 +246,115 @@ button {
 }
 
 .title {
-  color: #FFF;
+  margin-top: 246px;
+  color: var(--color-white);
+  text-shadow: 0 1px #060135,
+    0 2px #0d0b40,
+    0 3px #171457,
+    0 4px #18154e,
+    0 5px #365678,
+    0 6px var(--color-win),
+    0 6px 1px rgba(235, 252, 252, .1),
+    0 0 5px rgba(235, 252, 252, .1),
+    0 1px 3px rgba(235, 252, 252, .3),
+    0 3px 5px rgba(235, 252, 252, .2),
+    0 5px 10px rgba(235, 252, 252, .25),
+    0 20px 20px rgba(255, 255, 255, .2),
+    0 30px 30px rgba(255, 255, 255, .9);
+  letter-spacing: 0.600rem;
+  line-height: 80px;
+}
+
+.title-line-2 {
+  display: inline;
+  text-shadow: 0 1px #060135,
+    0 2px #0d0b40,
+    0 3px #171457,
+    0 4px #18154e,
+    0 5px #365678,
+    0 6px var(--color-win),
+    0 6px 1px rgba(235, 252, 252, .1),
+    0 0 5px rgba(235, 252, 252, .1),
+    0 1px 3px rgba(235, 252, 252, .3),
+    0 3px 5px rgba(235, 252, 252, .2),
+    0 5px 10px rgba(235, 252, 252, .25),
+    0 20px 20px rgba(255, 255, 255, .2),
+    0 30px 30px rgba(255, 255, 255, .9);
+}
+
+.title,
+.header {
+  text-transform: uppercase;
 }
 
 .start {
   background-color: #3a3f58;
+  background-image: url("../images/harry-potter-start.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+
 }
 
-.start a {
-  color: #fff;
-}
+
 
 .win {
-  background-color: var(--color-win);
+  background-color: #3a3f58;
+  background-image: url("../images/harry-team.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
 }
 
-.win a {
-  color: var(--color-win);
+.win h1 {
+  color: var(--color-white);
+  letter-spacing: 0.700rem;
+  font-size: var(--font-size-large);
+  text-shadow: 0 1px #060135,
+    0 2px #0d0b40,
+    0 3px #171457,
+    0 4px #18154e,
+    0 5px #365678,
+    0 6px var(--color-win),
+    0 6px 1px rgba(235, 252, 252, .1),
+    0 0 5px rgba(235, 252, 252, .1),
+    0 1px 3px rgba(235, 252, 252, .3),
+    0 3px 5px rgba(235, 252, 252, .2),
+    0 5px 10px rgba(235, 252, 252, .25),
+    0 20px 20px rgba(255, 255, 255, .2),
+    0 30px 30px rgba(255, 255, 255, .9);
+
 }
+
+.win #btn__reset {
+  background: var(--color-win);
+  color: var(--color-keys);
+  box-shadow: inset 0 0 7px 2px var(--color-keys);
+}
+
+
+
+
 
 .lose {
-  background-color: #f5785f;
+  background-color: #3a3f58;
+  background-image: url("../images/voldermort-team.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
 }
 
-.lose a {
-  color: var(--color-lose);
+.lose h1 {
+  color: var(--color-white);
+  letter-spacing: 0.700rem;
+  font-size: var(--font-size-large);
+  text-shadow: 0 1px #350110, 0 2px #400b0b, 0 3px #571414, 0 4px #4e1515, 0 5px #783636, 0 6px #abf0f8, 0 6px 1px rgba(235, 252, 252, .1), 0 0 5px rgba(235, 252, 252, .1), 0 1px 3px rgba(235, 252, 252, .3), 0 3px 5px rgba(235, 252, 252, .2), 0 5px 10px rgba(235, 252, 252, .25), 0 20px 20px rgba(255, 255, 255, .2), 0 30px 30px rgba(255, 255, 255, .9);
+  ;
+}
+
+
+.lose #btn__reset {
+  background: var(--color-lose);
+  color: var(--color-white);
+  box-shadow: inset 0 0 7px 2px #e1eef4;
 }
