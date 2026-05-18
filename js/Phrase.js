@@ -3,7 +3,8 @@
  * Phrase.js */
 
 class Phrase {
-  constructor(phrase) {
+  constructor(question, phrase) {
+    this.question = question;
     this.phrase = phrase.toLowerCase();
   }
 }
