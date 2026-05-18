@@ -1,3 +1,9 @@
 /* Treehouse FSJS Techdegree
  * Project 4 - OOP Game App
  * app.js */
+
+const phrase = new Phrase("Harry Potter");
+const game = new Game();
+
+console.log(phrase);
+console.log(game);
