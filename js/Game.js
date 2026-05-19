@@ -24,4 +24,8 @@ class Game {
     ];
     this.activePharse = null;
   }
+
+  getRandomPhrase() {
+    return this.phrases[Math.floor(Math.random() * this.phrases.length)];
+  }
 }
