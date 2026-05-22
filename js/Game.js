@@ -22,10 +22,17 @@ class Game {
       new Phrase("Which Hogwarts student witch is this?", "Luna Lovegood"),
       new Phrase("Which Hogwarts student witch is this?", "Cho Chang"),
     ];
-    this.activePharse = null;
+    this.activePhrase = null;
+    this.overlay = document.querySelector("#overlay");
   }
 
   getRandomPhrase() {
     return this.phrases[Math.floor(Math.random() * this.phrases.length)];
+  }
+
+  startGame() {
+    this.overlay.className = "hide";
+    this.activePhrase = this.getRandomPhrase();
+    this.activePhrase.addPhraseToDisplay();
   }
 }
