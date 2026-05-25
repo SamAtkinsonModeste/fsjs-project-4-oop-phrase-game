@@ -59,10 +59,6 @@ class Phrase {
         return true;
       }
     }
-    // const letterBox = document.querySelectorAll(".box");
-    // const spanLetters = letterBox[0].querySelector(".letter");
-    // console.log(letterBox);
-    // console.log(spanLetters);
     return false;
   }
 
