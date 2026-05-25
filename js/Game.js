@@ -31,8 +31,16 @@ class Game {
   }
 
   startGame() {
+    const sectionPhrase = document
+      .querySelector("#phrase")
+      .classList.add("movePhraseSection");
+    const sectionQwerty = document
+      .querySelector("#qwerty")
+      .classList.add("moveSection");
+
     this.overlay.className = "hide";
     this.activePhrase = this.getRandomPhrase();
+
     this.activePhrase.addPhraseToDisplay();
   }
 }
