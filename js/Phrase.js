@@ -59,6 +59,21 @@ class Phrase {
         return true;
       }
     }
+    // const letterBox = document.querySelectorAll(".box");
+    // const spanLetters = letterBox[0].querySelector(".letter");
+    // console.log(letterBox);
+    // console.log(spanLetters);
     return false;
+  }
+
+  showMatchedLetter(correctLetter) {
+    const letterBoxes = document.querySelectorAll(".box");
+    for (let i = 0; i < letterBoxes.length; i++) {
+      let spanLetter = letterBoxes[i].querySelector(".letter");
+      if (correctLetter === spanLetter.textContent) {
+        letterBoxes[i].classList.add("show");
+        console.log(letterBoxes[i]);
+      }
+    }
   }
 }
