@@ -326,6 +326,10 @@ span.letter {
 
 }
 
+#overlay.win h2.title {
+  display: none;
+}
+
 .win #btn__reset {
   background: var(--color-win);
   color: var(--color-keys);
@@ -352,9 +356,25 @@ span.letter {
   ;
 }
 
+#overlay.lose h2.title {
+  display: none;
+}
 
 .lose #btn__reset {
   background: var(--color-lose);
   color: var(--color-white);
   box-shadow: inset 0 0 7px 2px #e1eef4;
+}
+
+
+#overlay.hide {
+  display: none;
+}
+
+.movePhraseSection {
+  transform: translateY(120px);
+}
+
+.moveSection {
+  transform: translateY(60px);
 }
