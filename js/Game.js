@@ -40,7 +40,22 @@ class Game {
 
     this.overlay.className = "hide";
     this.activePhrase = this.getRandomPhrase();
-
     this.activePhrase.addPhraseToDisplay();
+  }
+
+  checkForWin() {
+    const spanBoxesShow = document.querySelectorAll(".box.show");
+    const spanBoxes = document.querySelectorAll(".box");
+    return spanBoxesShow.length === spanBoxes.length;
+  }
+
+  removeLife() {
+    this.missed += 1;
+    const lives = document.querySelectorAll(".tries img");
+    lives[this.missed - 1].src = "images/broken-wand.png";
+
+    if (this.missed >= 5) {
+      this.gameOver();
+    }
   }
 }
