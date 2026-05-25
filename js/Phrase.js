@@ -6,6 +6,7 @@ class Phrase {
   constructor(question, phrase) {
     this.question = question;
     this.phrase = phrase.toLowerCase();
+    this.letters = this.phrase.split("");
   }
 
   createLetterElements(nameElement, property, value) {
@@ -18,8 +19,8 @@ class Phrase {
     let questionContainer = document.querySelector(".header");
     questionContainer.textContent = this.question;
     const ulPhrase = document.querySelector("#phrase ul");
-    const letters = this.phrase.split("");
-    letters.forEach((letter) => {
+
+    this.letters.forEach((letter) => {
       if (letter !== " ") {
         const li = this.createLetterElements("li", "className", "letter");
         const spanBox = this.createLetterElements("span", "className", "box");
@@ -48,7 +49,16 @@ class Phrase {
       }
     });
     console.log(questionContainer);
-    console.log(letters);
+    console.log(this.letters);
     console.log(ulPhrase);
+  }
+
+  checkLetter(btnLetter) {
+    for (let i = 0; i < this.letters.length; i++) {
+      if (btnLetter === this.letters[i]) {
+        return true;
+      }
+    }
+    return false;
   }
 }
