@@ -243,6 +243,7 @@ span.letter {
   left: 0;
   right: 0;
   border-radius: 5px;
+  z-index: 999;
 }
 
 .title {
@@ -321,8 +322,8 @@ span.letter {
     0 1px 3px rgba(235, 252, 252, .3),
     0 3px 5px rgba(235, 252, 252, .2),
     0 5px 10px rgba(235, 252, 252, .25),
-    0 20px 20px rgba(255, 255, 255, .2),
-    0 30px 30px rgba(255, 255, 255, .9);
+    0 10px 15px rgba(255, 255, 255, .2),
+    0 15px 20px rgba(251, 222, 3, 0.5);
 
 }
 
@@ -352,8 +353,20 @@ span.letter {
   color: var(--color-white);
   letter-spacing: 0.700rem;
   font-size: var(--font-size-large);
-  text-shadow: 0 1px #350110, 0 2px #400b0b, 0 3px #571414, 0 4px #4e1515, 0 5px #783636, 0 6px #abf0f8, 0 6px 1px rgba(235, 252, 252, .1), 0 0 5px rgba(235, 252, 252, .1), 0 1px 3px rgba(235, 252, 252, .3), 0 3px 5px rgba(235, 252, 252, .2), 0 5px 10px rgba(235, 252, 252, .25), 0 20px 20px rgba(255, 255, 255, .2), 0 30px 30px rgba(255, 255, 255, .9);
-  ;
+  text-shadow: 0 1px #350110,
+    0 2px #400b0b,
+    0 3px #571414,
+    0 4px #4e1515,
+    0 5px #783636,
+    0 6px #abf0f8,
+    0 6px 1px rgba(235, 252, 252, .1),
+    0 0 5px rgba(235, 252, 252, .1),
+    0 1px 3px rgba(235, 252, 252, .3),
+    0 3px 5px rgba(235, 252, 252, .2),
+    0 5px 10px rgba(235, 252, 252, .25),
+    0 10px 15px rgba(255, 255, 255, .2),
+    0 15px 20px rgba(252, 1, 1, 0.5);
+
 }
 
 #overlay.lose h2.title {
