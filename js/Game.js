@@ -65,13 +65,31 @@ class Game {
     if (gameResults) {
       overlayDiv.style.display = "flex";
       overlayDiv.className = "win";
+      resultsMessageH1.style.transform = "translateY(229px)";
       resultsMessageH1.textContent = "Victory to Harry's Team 🥳";
+      btnPlayAgain.style.transform = "translateY(235px)";
       btnPlayAgain.textContent = "Play Again?";
     } else if (!gameResults) {
       overlayDiv.style.display = "flex";
       overlayDiv.className = "lose";
       resultsMessageH1.textContent = "Victory to Voldermorts Team 😱";
       btnPlayAgain.textContent = "Play Again?";
+    }
+  }
+
+  handleInteraction(button) {
+    console.log(button);
+    button.disabled = true;
+    if (!this.activePhrase.checkLetter(button.textContent)) {
+      button.classList.add("wrong");
+      this.removeLife();
+    } else {
+      button.classList.add("chosen");
+      this.activePhrase.showMatchedLetter(button.textContent);
+      const playerWins = this.checkForWin();
+      if (playerWins) {
+        this.gameOver(playerWins);
+      }
     }
   }
 }
