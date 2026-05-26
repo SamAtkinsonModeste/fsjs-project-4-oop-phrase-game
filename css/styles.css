@@ -303,7 +303,6 @@ span.letter {
   background-color: #3a3f58;
   background-image: url("../images/harry-team.jpg");
   background-repeat: no-repeat;
-  background-position: center;
   background-size: cover;
 }
 
@@ -345,7 +344,6 @@ span.letter {
   background-color: #3a3f58;
   background-image: url("../images/voldermort-team.jpg");
   background-repeat: no-repeat;
-  background-position: center;
   background-size: cover;
 }
 
