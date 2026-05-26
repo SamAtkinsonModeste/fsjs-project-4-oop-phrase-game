@@ -24,6 +24,8 @@ class Game {
     ];
     this.activePhrase = null;
     this.overlay = document.querySelector("#overlay");
+    this.lives = document.querySelectorAll(".tries img");
+    this.keyboardBtns = document.querySelectorAll(".key");
   }
 
   getRandomPhrase() {
@@ -49,36 +51,42 @@ class Game {
 
   removeLife() {
     this.missed += 1;
-    const lives = document.querySelectorAll(".tries img");
-    lives[this.missed - 1].src = "images/broken-wand.png";
+    this.lives[this.missed - 1].src = "images/broken-wand.png";
 
     if (this.missed >= 5) {
+      this.keyboardBtns.forEach((keyboardBtn) => {
+        keyboardBtn.disabled = true;
+      });
       this.gameOver();
     }
   }
 
   gameOver(gameResults) {
     const resultsMessageH1 = document.querySelector("#game-over-message");
-    const overlayDiv = document.querySelector("#overlay");
     const btnPlayAgain = document.querySelector("#btn__reset");
 
     if (gameResults) {
-      overlayDiv.style.display = "flex";
-      overlayDiv.className = "win";
-      resultsMessageH1.style.transform = "translateY(229px)";
-      resultsMessageH1.textContent = "Victory to Harry's Team 🥳";
-      btnPlayAgain.style.transform = "translateY(235px)";
-      btnPlayAgain.textContent = "Play Again?";
+      setTimeout(() => {
+        this.overlay.className = "win";
+        resultsMessageH1.style.transform = "translateY(-350px)";
+        resultsMessageH1.textContent = "Victory to Harry's Team 🥳";
+        btnPlayAgain.style.transform = "translateY(235px)";
+        btnPlayAgain.textContent = "Play Again?";
+        this.gameReset();
+      }, 1400);
     } else if (!gameResults) {
-      overlayDiv.style.display = "flex";
-      overlayDiv.className = "lose";
-      resultsMessageH1.textContent = "Victory to Voldermorts Team 😱";
-      btnPlayAgain.textContent = "Play Again?";
+      setTimeout(() => {
+        this.overlay.className = "lose";
+        resultsMessageH1.style.transform = "translateY(130px)";
+        resultsMessageH1.textContent = "Victory to Voldermorts Team 😱";
+        btnPlayAgain.style.transform = "translateY(150px)";
+        btnPlayAgain.textContent = "Play Again?";
+        this.gameReset();
+      }, 1400);
     }
   }
 
   handleInteraction(button) {
-    console.log(button);
     button.disabled = true;
     if (!this.activePhrase.checkLetter(button.textContent)) {
       button.classList.add("wrong");
@@ -88,8 +96,28 @@ class Game {
       this.activePhrase.showMatchedLetter(button.textContent);
       const playerWins = this.checkForWin();
       if (playerWins) {
+        this.keyboardBtns.forEach((keyboardBtn) => {
+          keyboardBtn.disabled = true;
+        });
         this.gameOver(playerWins);
       }
     }
+  }
+
+  gameReset() {
+    const ulPhrase = document.querySelector("#phrase ul");
+    const gameOverMessageH1 = document.querySelector("#game-over-message");
+    ulPhrase.innerHTML = "";
+    if (!this.overlay.className === "hide") {
+      this.overlay.className === "hide";
+      gameOverMessageH1.textContent = "";
+    }
+
+    this.keyboardBtns.forEach((keyboardBtn) => {
+      keyboardBtn.removeAttribute("disabled");
+      keyboardBtn.className = "key";
+    });
+
+    this.lives.forEach((lifeImage) => (lifeImage.src = "images/wands.png"));
   }
 }
