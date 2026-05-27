@@ -25,7 +25,7 @@ class Game {
     this.activePhrase = null;
     this.overlay = document.querySelector("#overlay");
     this.lives = document.querySelectorAll(".tries img");
-    this.keyboardBtns = document.querySelectorAll(".key");
+    this.qwertyBtns = document.querySelectorAll(".key");
   }
 
   getRandomPhrase() {
@@ -54,8 +54,8 @@ class Game {
     this.lives[this.missed - 1].src = "images/broken-wand.png";
 
     if (this.missed >= 5) {
-      this.keyboardBtns.forEach((keyboardBtn) => {
-        keyboardBtn.disabled = true;
+      this.qwertyBtns.forEach((qwertyBtn) => {
+        qwertyBtn.disabled = true;
       });
       this.gameOver();
     }
@@ -96,12 +96,22 @@ class Game {
       this.activePhrase.showMatchedLetter(button.textContent);
       const playerWins = this.checkForWin();
       if (playerWins) {
-        this.keyboardBtns.forEach((keyboardBtn) => {
-          keyboardBtn.disabled = true;
+        this.qwertyBtns.forEach((qwertyBtn) => {
+          qwertyBtn.disabled = true;
         });
         this.gameOver(playerWins);
       }
     }
+  }
+
+  handleKeyboardEvts(key) {
+    this.qwertyBtns.forEach((qwertyBtn) => {
+      if (key === qwertyBtn.textContent) {
+        if (qwertyBtn.disabled !== true) {
+          this.handleInteraction(qwertyBtn);
+        }
+      }
+    });
   }
 
   gameReset() {
@@ -113,9 +123,9 @@ class Game {
       gameOverMessageH1.textContent = "";
     }
 
-    this.keyboardBtns.forEach((keyboardBtn) => {
-      keyboardBtn.removeAttribute("disabled");
-      keyboardBtn.className = "key";
+    this.qwertyBtns.forEach((qwertyBtn) => {
+      qwertyBtn.removeAttribute("disabled");
+      qwertyBtn.className = "key";
     });
 
     this.lives.forEach((lifeImage) => (lifeImage.src = "images/wands.png"));
