@@ -17,3 +17,15 @@ qwertySection.addEventListener("click", (evt) => {
     game.handleInteraction(keyboardBtn);
   }
 });
+
+document.addEventListener("keydown", (evt) => {
+  if (evt.code.startsWith("K")) {
+    console.log(evt.key);
+    const characterKey = evt.key;
+    // console.log(characterKey);
+    // console.log(evt);
+    game.handleKeyboardEvts(characterKey);
+  } else {
+    console.log("I am not a character key");
+  }
+});
