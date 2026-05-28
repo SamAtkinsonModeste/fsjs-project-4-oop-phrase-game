@@ -40,16 +40,14 @@ class Phrase {
         spanLetter.textContent = letter;
         ulPhrase.appendChild(li);
 
-        console.log(li);
+        // console.log(li);
       } else {
         const liSpace = this.createLetterElements("li", "className", "space");
         ulPhrase.appendChild(liSpace);
-
-        console.log(liSpace);
       }
     });
     console.log(questionContainer);
-    console.log(this.letters);
+    // console.log(this.letters);
     console.log(ulPhrase);
   }
 

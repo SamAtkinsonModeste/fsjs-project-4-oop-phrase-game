@@ -68,6 +68,13 @@ function randomValues(element) {
   element.style.opacity = randomOpacityNumber;
 }
 
+/**
+ * Creates reusable GSAP float animation settings
+ * @param {number} xPosition X movement amount for the animation
+ * @param {number} yPosition Y movement amount for the animation
+ * @returns {Object} GSAP animation configuration object
+ */
+
 function floatStarsConfig(xPosition, yPosition) {
   return {
     x: xPosition,
@@ -75,25 +82,51 @@ function floatStarsConfig(xPosition, yPosition) {
     opacity: 0.7,
     repeat: -1,
     yoyo: true,
-    duration: 8,
+    duration: 6,
     stagger: 0.2,
     ease: "power2.inOut",
   };
 }
 
+/**
+ * Creates reusable GSAP twinkle animation settings
+ * @returns {Object} GSAP animation configuration object
+ */
+
+function twinkleStarsConfig() {
+  return {
+    scale: 1.1,
+    rotate: 40,
+    repeat: -1,
+    yoyo: true,
+    duration: 0.25,
+    stagger: 0.1,
+    ease: "power4.in",
+  };
+}
+
 //!SECTION - CALLING CREATESTARS FUNCTION
-createStars(10, leftAnimationDiv, "stars left-stars-float");
-createStars(15, leftAnimationDiv, "stars left-stars-float2");
-createStars(20, rightAnimationDiv, "stars right-stars");
+createStars(20, leftAnimationDiv, "stars left-stars-float");
+createStars(20, leftAnimationDiv, "stars left-stars-float2");
+createStars(30, leftAnimationDiv, "stars left-stars-twinkle");
+createStars(20, rightAnimationDiv, "stars right-stars-float");
+createStars(20, rightAnimationDiv, "stars right-stars-float2");
+createStars(30, rightAnimationDiv, "stars right-stars-twinkle");
 
 //!SECTION - VARIABLES FROM CREATED STARS & HELPER FUNCTION STARSETUP
 const starsLeft = leftAnimationDiv.querySelectorAll(".stars");
-const leftFloat = starsSetUp(starsLeft, leftAnimationDiv);
+const starsRight = rightAnimationDiv.querySelectorAll(".stars");
+starsSetUp(starsLeft, leftAnimationDiv);
+starsSetUp(starsRight, rightAnimationDiv);
 
 //!SECTION - ANIMATION FOR THE DIFFERENT CLASS NAMES OF THE OVERLAY
 if (overlayDiv.className === "start") {
   gsap
     .timeline()
     .to("#left-animation .left-stars-float", floatStarsConfig(-10, 50))
-    .to("#left-animation .left-stars-float2", floatStarsConfig(10, 50));
+    .to("#right-animation .right-stars-float", floatStarsConfig(10, 50), "<")
+    .to("#left-animation .left-stars-float2", floatStarsConfig(10, 50), "<")
+    .to("#right-animation .right-stars-float2", floatStarsConfig(-10, 50), "<")
+    .to("#left-animation .left-stars-twinkle", twinkleStarsConfig(), "<")
+    .to("#right-animation .right-stars-twinkle", twinkleStarsConfig(), "<");
 }
