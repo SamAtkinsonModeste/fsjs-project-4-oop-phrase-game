@@ -140,12 +140,12 @@ button {
 
 
 /* Phrase */
-span {
+/* span {
   height: 70px;
   width: 70px;
   padding: 1px 0 0 1px;
 
-}
+} */
 
 span.box {
   position: relative;
@@ -244,6 +244,36 @@ span.letter {
   right: 0;
   border-radius: 5px;
   z-index: 999;
+}
+
+
+#animation-container {
+  display: flex;
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  justify-content: space-between;
+  height: 100vh;
+  border: solid red 2px;
+}
+
+#left-animation,
+#right-animation {
+  position: relative;
+  border: solid lightsalmon 2px;
+  width: 22vw;
+}
+
+span.stars {
+  position: absolute;
+  display: inline-block;
+  color: var(--color-win);
+  color: transparent;
+  background: rgba(243, 244, 238, 0.0);
+  background: radial-gradient(circle farthest-corner at 50% 50%, #f3f4ee 0%, #fae102 60%, #a57a02 100%);
+  background-clip: text;
+  font-size: 0.450rem;
+  /* border: solid 1px #07d999; */
 }
 
 .title {
