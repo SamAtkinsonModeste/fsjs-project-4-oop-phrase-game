@@ -11,16 +11,17 @@ const overlayDiv = document.querySelector("#overlay");
 //!SECTION - HELPER FUNCTIONS
 
 /**
- * Creates star elements and appends them to a container
- * @param {number} num Number of stars to create
- * @param {HTMLElement} side Container where the stars should be added
- * @param {string} className CSS class added to each star
+ * Creates decorative symbol elements and appends them to a container
+ * @param {number} num Number of symbols to create
+ * @param {HTMLElement} side Container where the symbols should be added
+ * @param {string} className CSS classes added to each symbol
+ * @param {string} symbol Character or symbol displayed inside each element
  */
-const createStars = (num, side, className) => {
+const createSymbols = (num, side, className, symbol) => {
   for (let i = 0; i < num; i++) {
     const star = document.createElement("span");
     star.className = className;
-    star.textContent = "✷";
+    star.textContent = symbol;
     side.append(star);
   }
 };
@@ -105,13 +106,13 @@ function twinkleStarsConfig() {
   };
 }
 
-//!SECTION - CALLING CREATESTARS FUNCTION
-createStars(20, leftAnimationDiv, "stars left-stars-float");
-createStars(20, leftAnimationDiv, "stars left-stars-float2");
-createStars(30, leftAnimationDiv, "stars left-stars-twinkle");
-createStars(20, rightAnimationDiv, "stars right-stars-float");
-createStars(20, rightAnimationDiv, "stars right-stars-float2");
-createStars(30, rightAnimationDiv, "stars right-stars-twinkle");
+//!SECTION - CALLING createSymbols FUNCTION
+createSymbols(20, leftAnimationDiv, "stars left-stars-float", "✷");
+createSymbols(20, leftAnimationDiv, "stars left-stars-float2", "✷");
+createSymbols(30, leftAnimationDiv, "stars left-stars-twinkle", "✷");
+createSymbols(20, rightAnimationDiv, "stars right-stars-float", "✷");
+createSymbols(20, rightAnimationDiv, "stars right-stars-float2", "✷");
+createSymbols(30, rightAnimationDiv, "stars right-stars-twinkle", "✷");
 
 //!SECTION - VARIABLES FROM CREATED STARS & HELPER FUNCTION STARSETUP
 const starsLeft = leftAnimationDiv.querySelectorAll(".stars");
