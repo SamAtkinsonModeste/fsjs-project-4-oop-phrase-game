@@ -100,6 +100,7 @@ button {
   text-shadow: 0 2px 2px #010806;
   border: solid #010806 2px;
   letter-spacing: 0.200rem;
+  z-index: 999;
 }
 
 #btn__reset:active {
@@ -243,7 +244,7 @@ span.letter {
   left: 0;
   right: 0;
   border-radius: 5px;
-  z-index: 999;
+  z-index: 888;
 }
 
 
@@ -254,14 +255,15 @@ span.letter {
   width: 100vw;
   justify-content: space-between;
   height: 100vh;
-  border: solid red 2px;
+  /* z-index: 1; */
+  /* border: solid red 2px; */
 }
 
 #left-animation,
 #right-animation {
   position: relative;
-  border: solid lightsalmon 2px;
-  width: 22vw;
+  /* border: solid lightsalmon 2px; */
+  width: 25vw;
 }
 
 span.stars {
