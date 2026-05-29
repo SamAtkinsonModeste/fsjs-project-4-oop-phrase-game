@@ -4,12 +4,20 @@
 let game;
 const startBtn = document.querySelector("#btn__reset");
 const qwertySection = document.querySelector("#qwerty");
+let gameIndex = 0;
 
 startBtn.addEventListener("click", (evt) => {
   console.log(evt.target);
   game = new Game();
-  game.startGame();
+  game.startGame(gameIndex);
   console.log(game.activePhrase);
+  console.log(game.xYCoordinates);
+  console.log(gameIndex);
+  if (gameIndex !== game.xYCoordinates.length - 1) {
+    gameIndex++;
+  } else {
+    gameIndex = 0;
+  }
 });
 
 qwertySection.addEventListener("click", (evt) => {
