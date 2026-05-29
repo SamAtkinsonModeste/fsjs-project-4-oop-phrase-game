@@ -121,6 +121,7 @@ button {
   background: linear-gradient(rgb(0, 0, 0, 0.2), rgba(0, 0, 0, 0)),
     url(../images/harry-war.jpg) no-repeat center top;
   background-size: 100% 75%;
+
 }
 
 .section {
@@ -141,12 +142,16 @@ button {
 
 
 /* Phrase */
-/* span {
-  height: 70px;
-  width: 70px;
-  padding: 1px 0 0 1px;
+#phrase {
+  overflow: hidden;
+}
 
-} */
+#phrase ul {
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 span.box {
   position: relative;
@@ -416,6 +421,7 @@ span.stars {
 
 .movePhraseSection {
   transform: translateY(120px);
+
 }
 
 .moveSection {
