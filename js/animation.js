@@ -109,13 +109,15 @@ function twinkleStarsConfig() {
 
 /**
  * Returns phrase entry animation settings
- * based on the supplied direction index
- * @param {number} index - Direction position in the directions array
- * @returns {object} Selected GSAP direction settings object
+ * using the supplied coordinates array
+ * and direction index
+ * @param {array} coordinates - Array of GSAP direction objects
+ * @param {number} index - Position within the coordinates array
+ * @returns {object} Selected GSAP animation settings object
  */
-function phraseEntryDirections(index) {
-  const directions = [{ x: -100 }, { y: 100 }, { x: 100 }, { y: -100 }];
-  return directions[index];
+function phraseEntryDirections(coordinates, index) {
+  coordinates = [...coordinates];
+  return coordinates[index];
 }
 
 //!SECTION - CALLING createSymbols FUNCTION
