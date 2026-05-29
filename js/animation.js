@@ -7,6 +7,7 @@
 const leftAnimationDiv = document.querySelector("#left-animation");
 const rightAnimationDiv = document.querySelector("#right-animation");
 const overlayDiv = document.querySelector("#overlay");
+const phraseLIs = document.querySelectorAll(".li-phrase");
 
 //!SECTION - HELPER FUNCTIONS
 
@@ -104,6 +105,17 @@ function twinkleStarsConfig() {
     stagger: 0.1,
     ease: "power4.in",
   };
+}
+
+/**
+ * Returns phrase entry animation settings
+ * based on the supplied direction index
+ * @param {number} index - Direction position in the directions array
+ * @returns {object} Selected GSAP direction settings object
+ */
+function phraseEntryDirections(index) {
+  const directions = [{ x: -100 }, { y: 100 }, { x: 100 }, { y: -100 }];
+  return directions[index];
 }
 
 //!SECTION - CALLING createSymbols FUNCTION
