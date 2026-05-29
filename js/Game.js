@@ -26,13 +26,19 @@ class Game {
     this.overlay = document.querySelector("#overlay");
     this.lives = document.querySelectorAll(".tries img");
     this.qwertyBtns = document.querySelectorAll(".key");
+    this.xYCoordinates = [
+      { x: -1500, stagger: -0.1, ease: "bounce" },
+      { y: 150, stagger: -0.1, ease: "bounce.in" },
+      { x: 1500, stagger: 0.1, ease: "bounce" },
+      { y: -150, stagger: 0.1, ease: "bounce.in" },
+    ];
   }
 
   getRandomPhrase() {
     return this.phrases[Math.floor(Math.random() * this.phrases.length)];
   }
 
-  startGame() {
+  startGame(index) {
     const sectionPhrase = document.querySelector("#phrase");
     sectionPhrase.classList.add("movePhraseSection");
     const sectionQwerty = document.querySelector("#qwerty");
@@ -41,6 +47,14 @@ class Game {
     this.overlay.className = "hide";
     this.activePhrase = this.getRandomPhrase();
     this.activePhrase.addPhraseToDisplay();
+    this.phraseLIs = sectionPhrase.querySelectorAll(".li-phrase");
+
+    const direction = phraseEntryDirections(this.xYCoordinates, index);
+    gsap.from("#phrase .li-phrase", {
+      ...direction,
+      duration: 1.8,
+      ease: "bounce",
+    });
   }
 
   checkForWin() {
