@@ -22,7 +22,11 @@ class Phrase {
 
     this.letters.forEach((letter) => {
       if (letter !== " ") {
-        const li = this.createLetterElements("li", "className", "letter");
+        const li = this.createLetterElements(
+          "li",
+          "className",
+          "letter li-phrase",
+        );
         const spanBox = this.createLetterElements("span", "className", "box");
         const spanFront = this.createLetterElements(
           "span",
@@ -42,7 +46,11 @@ class Phrase {
 
         // console.log(li);
       } else {
-        const liSpace = this.createLetterElements("li", "className", "space");
+        const liSpace = this.createLetterElements(
+          "li",
+          "className",
+          "space li-phrase",
+        );
         ulPhrase.appendChild(liSpace);
       }
     });
