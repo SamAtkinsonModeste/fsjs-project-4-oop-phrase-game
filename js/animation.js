@@ -21,10 +21,10 @@ const phraseLIs = document.querySelectorAll(".li-phrase");
  */
 const createSymbols = (num, side, className, symbol) => {
   for (let i = 0; i < num; i++) {
-    const star = document.createElement("span");
-    star.className = className;
-    star.textContent = symbol;
-    side.append(star);
+    const container = document.createElement("span");
+    container.className = className;
+    container.textContent = symbol;
+    side.append(container);
   }
 };
 
@@ -41,6 +41,17 @@ const starsSetUp = (elements, container) => {
 };
 
 /**
+ * Sets up win / lose symbols with fixed positions
+ * @param {NodeList} elements Collection of symbol elements to position
+ * @param {HTMLElement} container Container used for positioning symbols
+ */
+const winLoseSetup = (elements, container) => {
+  elements.forEach((symbol, index) => {
+    winLosePositions(container, symbol, index);
+  });
+};
+
+/**
  * Gives one element a random position inside a container
  * @param {HTMLElement} container Container used to calculate the random position
  * @param {HTMLElement} element Element that will receive the random position
@@ -53,6 +64,24 @@ function randomPositions(container, element) {
   const top = positionY + "px";
   element.style.left = side;
   element.style.top = top;
+}
+
+/**
+ * Positions win / lose symbols into rows inside a container
+ * @param {HTMLElement} container Container used for positioning symbols
+ * @param {HTMLElement} element Symbol element being positioned
+ * @param {number} index Position number used to calculate row and column
+ */
+function winLosePositions(container, element, index) {
+  const emojisPerRow = 10;
+  const row = Math.floor(index / emojisPerRow);
+  const column = index % emojisPerRow;
+  const rowHeight = 40;
+  const startY = 620;
+  const positionX = (column + 1) * (container.offsetWidth / (emojisPerRow + 1));
+  const positionY = startY + row * rowHeight;
+  element.style.left = positionX + "px";
+  element.style.top = positionY + "px";
 }
 
 /**
@@ -92,19 +121,43 @@ function floatStarsConfig(xPosition, yPosition) {
 }
 
 /**
+ * Creates reusable GSAP rotation settings for win / lose symbols
+ * @param {number} num Rotation amount in degrees
+ * @returns {Object} GSAP animation configuration object
+ */
+function winLoseRotateConfig(num) {
+  return {
+    rotation: num,
+    repeat: -1,
+    duration: 2,
+  };
+}
+
+/**
+ * Creates reusable GSAP up and down animation settings
+ * @param {number} yPosition Vertical movement amount in pixels
+ * @returns {Object} GSAP animation configuration object
+ */
+function winLoseUpDownConfig(yPosition) {
+  return {
+    y: yPosition,
+    repeat: -1,
+    yoyo: true,
+    duration: 2,
+  };
+}
+
+/**
  * Creates reusable GSAP twinkle animation settings
  * @returns {Object} GSAP animation configuration object
  */
 
 function twinkleStarsConfig() {
   return {
-    scale: 1.1,
-    rotate: 40,
+    rotation: 360,
+    opacity: 0.7,
     repeat: -1,
-    yoyo: true,
-    duration: 0.25,
-    stagger: 0.1,
-    ease: "power4.in",
+    duration: 10,
   };
 }
 
@@ -121,7 +174,7 @@ function phraseEntryDirections(coordinates, index) {
   return coordinates[index];
 }
 
-//!SECTION - CALLING createSymbols FUNCTION
+//!SECTION - CALLING createSymbols FUNCTION - START STARS EMOJIS
 createSymbols(20, leftAnimationDiv, "stars left-stars-float", "✷");
 createSymbols(20, leftAnimationDiv, "stars left-stars-float2", "✷");
 createSymbols(30, leftAnimationDiv, "stars left-stars-twinkle", "✷");
@@ -129,40 +182,35 @@ createSymbols(20, rightAnimationDiv, "stars right-stars-float", "✷");
 createSymbols(20, rightAnimationDiv, "stars right-stars-float2", "✷");
 createSymbols(30, rightAnimationDiv, "stars right-stars-twinkle", "✷");
 
-//!SECTION - WIN createSymbols FUNCTION
-createSymbols(20, rightAnimationDiv, "celebrate right-celebrate-wands", "🪄");
-createSymbols(20, leftAnimationDiv, "celebrate left-celebrate-wands", "🪄");
-createSymbols(20, rightAnimationDiv, "celebrate right-celebrate-stars", "✨");
-createSymbols(20, leftAnimationDiv, "celebrate left-celebrate-stars", "✨");
+//!SECTION - CALLING  createSymbols FUNCTION - WIN EMOJIS
+createSymbols(10, rightAnimationDiv, "results right-celebrate-stars", "✨");
+createSymbols(10, rightAnimationDiv, "results right-celebrate-wands", "🪄");
+createSymbols(10, rightAnimationDiv, "results right-celebrate-stars2", "✨");
+createSymbols(10, rightAnimationDiv, "results right-celebrate-wands2", "🪄");
+createSymbols(10, rightAnimationDiv, "results right-celebrate-stars3", "✨");
+createSymbols(10, leftAnimationDiv, "results left-celebrate-stars", "✨");
+createSymbols(10, leftAnimationDiv, "results left-celebrate-wands", "🪄");
+createSymbols(10, leftAnimationDiv, "results left-celebrate-stars2", "✨");
+createSymbols(10, leftAnimationDiv, "results left-celebrate-wands2", "🪄");
+createSymbols(10, leftAnimationDiv, "results left-celebrate-stars3", "✨");
 
 //!SECTION - VARIABLES FROM CREATED STARS & HELPER FUNCTION STARSETUP
 const starsLeft = leftAnimationDiv.querySelectorAll(".stars");
 const starsRight = rightAnimationDiv.querySelectorAll(".stars");
-const celebrateWandsRight = rightAnimationDiv.querySelectorAll(
-  ".right-celebrate-wands",
-);
-const celebrateWandsLeft = leftAnimationDiv.querySelectorAll(
-  ".left-celebrate-wands",
-);
-const celebrateStarsRight = rightAnimationDiv.querySelectorAll(
-  ".right-celebrate-stars",
-);
-const celebrateStarsLeft = leftAnimationDiv.querySelectorAll(
-  ".left-celebrate-stars",
-);
-// starsSetUp(starsLeft, leftAnimationDiv);
-// starsSetUp(starsRight, rightAnimationDiv);
-// starsSetUp(celebrateWandsRight, rightAnimationDiv);
-// starsSetUp(celebrateWandsLeft, leftAnimationDiv);
+const resultsRight = rightAnimationDiv.querySelectorAll(".results");
+const resultsLeft = leftAnimationDiv.querySelectorAll(".results");
 
 //!SECTION - ANIMATION FOR THE DIFFERENT CLASS NAMES OF THE OVERLAY
 
 function startOverlayAnimation() {
   starsSetUp(starsLeft, leftAnimationDiv);
   starsSetUp(starsRight, rightAnimationDiv);
-  gsap.set(".left-celebrate-wands, .right-celebrate-wands", {
-    autoAlpha: 0,
-  });
+  gsap.set(
+    ".left-celebrate-wands, .right-celebrate-wands, .left-celebrate-stars, .right-celebrate-stars,.left-celebrate-wands2, .right-celebrate-wands2, .left-celebrate-stars2,.left-celebrate-stars3 .right-celebrate-stars2, .right-celebrate-stars3",
+    {
+      autoAlpha: 0,
+    },
+  );
   gsap.set(
     ".left-stars-float, .right-stars-float, .left-stars-float2, .right-stars-float2, .left-stars-twinkle, .right-stars-twinkle",
     {
@@ -180,12 +228,15 @@ function startOverlayAnimation() {
 }
 
 function winOverlayAnimation() {
-  starsSetUp(celebrateWandsRight, rightAnimationDiv);
-  starsSetUp(celebrateWandsLeft, leftAnimationDiv);
+  winLoseSetup(resultsRight, rightAnimationDiv);
+  winLoseSetup(resultsLeft, leftAnimationDiv);
 
-  gsap.set(".left-celebrate-wands, .right-celebrate-wands", {
-    autoAlpha: 1,
-  });
+  gsap.set(
+    ".left-celebrate-wands, .right-celebrate-wands, .left-celebrate-stars, .right-celebrate-stars,.left-celebrate-wands2, .right-celebrate-wands2, .left-celebrate-stars2,.left-celebrate-stars3 .right-celebrate-stars2, .right-celebrate-stars3",
+    {
+      autoAlpha: 1,
+    },
+  );
   gsap.set(
     ".left-stars-float, .right-stars-float, .left-stars-float2, .right-stars-float2, .left-stars-twinkle, .right-stars-twinkle",
     {
@@ -195,10 +246,33 @@ function winOverlayAnimation() {
 
   gsap
     .timeline()
-    .to("#left-animation .left-celebrate-wands", floatStarsConfig(-10, 50))
+    .to("#left-animation .left-celebrate-wands", winLoseRotateConfig(360))
     .to(
       "#right-animation .right-celebrate-wands",
-      floatStarsConfig(10, 50),
+      winLoseRotateConfig(360),
+      "<",
+    )
+
+    .to(
+      "#right-animation .right-celebrate-stars",
+      winLoseUpDownConfig(150),
+      "<",
+    )
+    .to("#left-animation .left-celebrate-stars", winLoseUpDownConfig(150), "<")
+    .to("#left-animation .left-celebrate-wands2", winLoseRotateConfig(360), "<")
+    .to(
+      "#right-animation .right-celebrate-wands2",
+      winLoseRotateConfig(360),
+      "<",
+    )
+    .to(
+      "#right-animation .right-celebrate-stars3",
+      winLoseUpDownConfig(-150),
+      "<",
+    )
+    .to(
+      "#left-animation .left-celebrate-stars3",
+      winLoseUpDownConfig(-150),
       "<",
     );
 }
