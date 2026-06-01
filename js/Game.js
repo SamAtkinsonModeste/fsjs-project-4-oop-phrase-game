@@ -43,7 +43,7 @@ class Game {
     sectionPhrase.classList.add("movePhraseSection");
     const sectionQwerty = document.querySelector("#qwerty");
     sectionQwerty.classList.add("moveSection");
-
+    startOverlayAnimation();
     this.overlay.className = "hide";
     this.activePhrase = this.getRandomPhrase();
     this.activePhrase.addPhraseToDisplay();
@@ -86,6 +86,7 @@ class Game {
         resultsMessageH1.textContent = "Victory to Harry's Team 🥳";
         btnPlayAgain.style.transform = "translateY(235px)";
         btnPlayAgain.textContent = "Play Again?";
+        winOverlayAnimation();
         this.gameReset();
       }, 1400);
     } else if (!gameResults) {
