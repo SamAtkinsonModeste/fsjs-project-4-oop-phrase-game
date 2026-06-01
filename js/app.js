@@ -6,6 +6,8 @@ const startBtn = document.querySelector("#btn__reset");
 const qwertySection = document.querySelector("#qwerty");
 let gameIndex = 0;
 
+startOverlayAnimation();
+
 startBtn.addEventListener("click", (evt) => {
   console.log(evt.target);
   game = new Game();
