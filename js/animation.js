@@ -4,6 +4,7 @@
 // - Star setup
 // - GSAP overlay animations
 
+const animationContainer = document.querySelector("#animation-container");
 const leftAnimationDiv = document.querySelector("#left-animation");
 const rightAnimationDiv = document.querySelector("#right-animation");
 const overlayDiv = document.querySelector("#overlay");
@@ -128,14 +129,46 @@ createSymbols(20, rightAnimationDiv, "stars right-stars-float", "✷");
 createSymbols(20, rightAnimationDiv, "stars right-stars-float2", "✷");
 createSymbols(30, rightAnimationDiv, "stars right-stars-twinkle", "✷");
 
+//!SECTION - WIN createSymbols FUNCTION
+createSymbols(20, rightAnimationDiv, "celebrate right-celebrate-wands", "🪄");
+createSymbols(20, leftAnimationDiv, "celebrate left-celebrate-wands", "🪄");
+createSymbols(20, rightAnimationDiv, "celebrate right-celebrate-stars", "✨");
+createSymbols(20, leftAnimationDiv, "celebrate left-celebrate-stars", "✨");
+
 //!SECTION - VARIABLES FROM CREATED STARS & HELPER FUNCTION STARSETUP
 const starsLeft = leftAnimationDiv.querySelectorAll(".stars");
 const starsRight = rightAnimationDiv.querySelectorAll(".stars");
-starsSetUp(starsLeft, leftAnimationDiv);
-starsSetUp(starsRight, rightAnimationDiv);
+const celebrateWandsRight = rightAnimationDiv.querySelectorAll(
+  ".right-celebrate-wands",
+);
+const celebrateWandsLeft = leftAnimationDiv.querySelectorAll(
+  ".left-celebrate-wands",
+);
+const celebrateStarsRight = rightAnimationDiv.querySelectorAll(
+  ".right-celebrate-stars",
+);
+const celebrateStarsLeft = leftAnimationDiv.querySelectorAll(
+  ".left-celebrate-stars",
+);
+// starsSetUp(starsLeft, leftAnimationDiv);
+// starsSetUp(starsRight, rightAnimationDiv);
+// starsSetUp(celebrateWandsRight, rightAnimationDiv);
+// starsSetUp(celebrateWandsLeft, leftAnimationDiv);
 
 //!SECTION - ANIMATION FOR THE DIFFERENT CLASS NAMES OF THE OVERLAY
-if (overlayDiv.className === "start") {
+
+function startOverlayAnimation() {
+  starsSetUp(starsLeft, leftAnimationDiv);
+  starsSetUp(starsRight, rightAnimationDiv);
+  gsap.set(".left-celebrate-wands, .right-celebrate-wands", {
+    autoAlpha: 0,
+  });
+  gsap.set(
+    ".left-stars-float, .right-stars-float, .left-stars-float2, .right-stars-float2, .left-stars-twinkle, .right-stars-twinkle",
+    {
+      autoAlpha: 1,
+    },
+  );
   gsap
     .timeline()
     .to("#left-animation .left-stars-float", floatStarsConfig(-10, 50))
@@ -144,4 +177,28 @@ if (overlayDiv.className === "start") {
     .to("#right-animation .right-stars-float2", floatStarsConfig(-10, 50), "<")
     .to("#left-animation .left-stars-twinkle", twinkleStarsConfig(), "<")
     .to("#right-animation .right-stars-twinkle", twinkleStarsConfig(), "<");
+}
+
+function winOverlayAnimation() {
+  starsSetUp(celebrateWandsRight, rightAnimationDiv);
+  starsSetUp(celebrateWandsLeft, leftAnimationDiv);
+
+  gsap.set(".left-celebrate-wands, .right-celebrate-wands", {
+    autoAlpha: 1,
+  });
+  gsap.set(
+    ".left-stars-float, .right-stars-float, .left-stars-float2, .right-stars-float2, .left-stars-twinkle, .right-stars-twinkle",
+    {
+      autoAlpha: 0,
+    },
+  );
+
+  gsap
+    .timeline()
+    .to("#left-animation .left-celebrate-wands", floatStarsConfig(-10, 50))
+    .to(
+      "#right-animation .right-celebrate-wands",
+      floatStarsConfig(10, 50),
+      "<",
+    );
 }
