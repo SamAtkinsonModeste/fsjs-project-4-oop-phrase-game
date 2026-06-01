@@ -271,16 +271,44 @@ span.letter {
   width: 25vw;
 }
 
-span.stars {
+span.stars,
+span.results {
   position: absolute;
   display: inline-block;
   color: var(--color-win);
   color: transparent;
   background: rgba(243, 244, 238, 0.0);
-  background: radial-gradient(circle farthest-corner at 50% 50%, #f3f4ee 0%, #fae102 60%, #a57a02 100%);
+  background: radial-gradient(circle farthest-corner at 50% 50%,
+      #fffef7 0%,
+      #fff7a8 25%,
+      #ffd700 60%,
+      #ffb300 100%);
   background-clip: text;
   font-size: 0.450rem;
   /* border: solid 1px #07d999; */
+}
+
+span.right-celebrate-wands,
+span.left-celebrate-wands,
+span.right-celebrate-wands2,
+span.left-celebrate-wands2 {
+  font-size: 1rem;
+  font-weight: bold;
+  background: radial-gradient(circle farthest-corner at 50% 50%,
+      #fffef7 0%,
+      #fff7a8 25%,
+      #ffd700 60%,
+      #ffb300 100%);
+  background-clip: text;
+}
+
+span.right-celebrate-stars,
+span.left-celebrate-stars,
+span.right-celebrate-stars2,
+span.left-celebrate-stars2,
+span.right-celebrate-stars3,
+span.left-celebrate-stars3 {
+  font-size: 1.2rem;
 }
 
 .title {
