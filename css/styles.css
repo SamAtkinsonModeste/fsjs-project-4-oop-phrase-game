@@ -272,9 +272,17 @@ span.letter {
 }
 
 span.stars,
-span.results {
+span.results,
+span.central-win-wand,
+span.left-confetti,
+span.center-confetti,
+span.right-confetti {
   position: absolute;
   display: inline-block;
+
+}
+
+span.stars {
   color: var(--color-win);
   color: transparent;
   background: rgba(243, 244, 238, 0.0);
@@ -288,28 +296,46 @@ span.results {
   /* border: solid 1px #07d999; */
 }
 
-span.right-celebrate-wands,
-span.left-celebrate-wands,
-span.right-celebrate-wands2,
-span.left-celebrate-wands2 {
-  font-size: 1rem;
-  font-weight: bold;
-  background: radial-gradient(circle farthest-corner at 50% 50%,
-      #fffef7 0%,
-      #fff7a8 25%,
-      #ffd700 60%,
-      #ffb300 100%);
-  background-clip: text;
+span.central-win-wand,
+span.left-confetti,
+span.center-confetti,
+span.right-confetti {
+  top: 120px;
 }
 
-span.right-celebrate-stars,
-span.left-celebrate-stars,
-span.right-celebrate-stars2,
-span.left-celebrate-stars2,
-span.right-celebrate-stars3,
-span.left-celebrate-stars3 {
-  font-size: 1.2rem;
+span.central-win-wand {
+  left: 40%;
+  font-size: 4rem;
+  font-weight: bold;
+  background: linear-gradient(230deg,
+      #fffef7 0%,
+      #fff7a8 15%,
+      #ffd700 50%,
+      #5d3b17 65%,
+      #130c04 100%);
+
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter:
+    drop-shadow(0 0 2px rgba(255, 247, 168, .9)) drop-shadow(0 0 6px rgba(255, 215, 0, .8)) drop-shadow(0 0 12px rgba(255, 215, 0, .5)) drop-shadow(0 0 20px rgba(255, 215, 0, .3));
 }
+
+
+span.left-confetti,
+span.center-confetti,
+span.right-confetti {
+  background: linear-gradient(135deg,
+      #fffef5 0%,
+      #ffe96b 20%,
+      #ffd700 45%,
+      #fff7b8 65%,
+      #ffbf00 100%);
+  filter:
+    drop-shadow(0 0 2px #fff7b8) drop-shadow(0 0 6px #ffd700);
+}
+
+
 
 .title {
   margin-top: 246px;
