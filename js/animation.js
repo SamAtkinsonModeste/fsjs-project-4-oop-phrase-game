@@ -7,8 +7,6 @@
 const animationContainer = document.querySelector("#animation-container");
 const leftAnimationDiv = document.querySelector("#left-animation");
 const rightAnimationDiv = document.querySelector("#right-animation");
-const overlayDiv = document.querySelector("#overlay");
-const phraseLIs = document.querySelectorAll(".li-phrase");
 
 //!SECTION - HELPER FUNCTIONS
 
@@ -41,13 +39,15 @@ const starsSetUp = (elements, container) => {
 };
 
 /**
- * Sets up win / lose symbols with fixed positions
- * @param {NodeList} elements Collection of symbol elements to position
- * @param {HTMLElement} container Container used for positioning symbols
+ * Sets up win / lose particles with random positions
+ * @param {NodeList} particles Collection of particles to position
+ * @param {number} min Minimum random position value
+ * @param {number} max Maximum random position value
+ * @param {HTMLElement} element Container or element used for positioning
  */
-const winLoseSetup = (elements, container) => {
-  elements.forEach((symbol, index) => {
-    winLosePositions(container, symbol, index);
+const winLoseSetup = (particles, min, max, element) => {
+  particles.forEach((particle) => {
+    winLoseRandomPositions(min, max, element, particle);
   });
 };
 
@@ -67,21 +67,24 @@ function randomPositions(container, element) {
 }
 
 /**
- * Positions win / lose symbols into rows inside a container
- * @param {HTMLElement} container Container used for positioning symbols
- * @param {HTMLElement} element Symbol element being positioned
- * @param {number} index Position number used to calculate row and column
+ * Generates random positions for win / lose particles
+ * @param {number} min Minimum random position value
+ * @param {number} max Maximum random position value
+ * @param {HTMLElement} element Element used as the position reference
+ * @param {HTMLElement} particle Particle element being positioned
  */
-function winLosePositions(container, element, index) {
-  const emojisPerRow = 10;
-  const row = Math.floor(index / emojisPerRow);
-  const column = index % emojisPerRow;
-  const rowHeight = 40;
-  const startY = 620;
-  const positionX = (column + 1) * (container.offsetWidth / (emojisPerRow + 1));
-  const positionY = startY + row * rowHeight;
-  element.style.left = positionX + "px";
-  element.style.top = positionY + "px";
+function winLoseRandomPositions(min, max, element, particle) {
+  const positionX = Math.floor(Math.random() * (max - min) + min);
+  const positionY = Math.floor(Math.random() * (max - min) + min);
+  const elementX = element.offsetLeft;
+  const elementY = element.offsetTop;
+  const particleX = positionX;
+  const particleY = positionY;
+  const finalX = elementX + particleX;
+  const finalY = elementY + particleY;
+
+  particle.style.left = finalX + "px";
+  particle.style.top = finalY + "px";
 }
 
 /**
@@ -99,6 +102,21 @@ function randomValues(element) {
   element.style.fontSize = fontSize;
   element.style.opacity = randomOpacityNumber;
 }
+
+/**
+ * Returns phrase entry animation settings
+ * using the supplied coordinates array
+ * and direction index
+ * @param {array} coordinates - Array of GSAP direction objects
+ * @param {number} index - Position within the coordinates array
+ * @returns {object} Selected GSAP animation settings object
+ */
+function phraseEntryDirections(coordinates, index) {
+  coordinates = [...coordinates];
+  return coordinates[index];
+}
+
+//!SECTION - GSAP Configs for start animation
 
 /**
  * Creates reusable GSAP float animation settings
@@ -121,33 +139,6 @@ function floatStarsConfig(xPosition, yPosition) {
 }
 
 /**
- * Creates reusable GSAP rotation settings for win / lose symbols
- * @param {number} num Rotation amount in degrees
- * @returns {Object} GSAP animation configuration object
- */
-function winLoseRotateConfig(num) {
-  return {
-    rotation: num,
-    repeat: -1,
-    duration: 2,
-  };
-}
-
-/**
- * Creates reusable GSAP up and down animation settings
- * @param {number} yPosition Vertical movement amount in pixels
- * @returns {Object} GSAP animation configuration object
- */
-function winLoseUpDownConfig(yPosition) {
-  return {
-    y: yPosition,
-    repeat: -1,
-    yoyo: true,
-    duration: 2,
-  };
-}
-
-/**
  * Creates reusable GSAP twinkle animation settings
  * @returns {Object} GSAP animation configuration object
  */
@@ -161,19 +152,6 @@ function twinkleStarsConfig() {
   };
 }
 
-/**
- * Returns phrase entry animation settings
- * using the supplied coordinates array
- * and direction index
- * @param {array} coordinates - Array of GSAP direction objects
- * @param {number} index - Position within the coordinates array
- * @returns {object} Selected GSAP animation settings object
- */
-function phraseEntryDirections(coordinates, index) {
-  coordinates = [...coordinates];
-  return coordinates[index];
-}
-
 //!SECTION - CALLING createSymbols FUNCTION - START STARS EMOJIS
 createSymbols(20, leftAnimationDiv, "stars left-stars-float", "✷");
 createSymbols(20, leftAnimationDiv, "stars left-stars-float2", "✷");
@@ -183,41 +161,41 @@ createSymbols(20, rightAnimationDiv, "stars right-stars-float2", "✷");
 createSymbols(30, rightAnimationDiv, "stars right-stars-twinkle", "✷");
 
 //!SECTION - CALLING  createSymbols FUNCTION - WIN EMOJIS
-createSymbols(10, rightAnimationDiv, "results right-celebrate-stars", "✨");
-createSymbols(10, rightAnimationDiv, "results right-celebrate-wands", "🪄");
-createSymbols(10, rightAnimationDiv, "results right-celebrate-stars2", "✨");
-createSymbols(10, rightAnimationDiv, "results right-celebrate-wands2", "🪄");
-createSymbols(10, rightAnimationDiv, "results right-celebrate-stars3", "✨");
-createSymbols(10, leftAnimationDiv, "results left-celebrate-stars", "✨");
-createSymbols(10, leftAnimationDiv, "results left-celebrate-wands", "🪄");
-createSymbols(10, leftAnimationDiv, "results left-celebrate-stars2", "✨");
-createSymbols(10, leftAnimationDiv, "results left-celebrate-wands2", "🪄");
-createSymbols(10, leftAnimationDiv, "results left-celebrate-stars3", "✨");
+createSymbols(1, animationContainer, "results central-win-wand", "🪄");
+createSymbols(10, animationContainer, "results left-confetti");
+createSymbols(10, animationContainer, "results center-confetti");
+createSymbols(10, animationContainer, "results right-confetti");
 
 //!SECTION - VARIABLES FROM CREATED STARS & HELPER FUNCTION STARSETUP
 const starsLeft = leftAnimationDiv.querySelectorAll(".stars");
 const starsRight = rightAnimationDiv.querySelectorAll(".stars");
-const resultsRight = rightAnimationDiv.querySelectorAll(".results");
-const resultsLeft = leftAnimationDiv.querySelectorAll(".results");
+const winWand = animationContainer.querySelector(".central-win-wand");
+const leftConfetti = animationContainer.querySelectorAll(".left-confetti");
+const centerConfetti = animationContainer.querySelectorAll(".center-confetti");
+const rightConfetti = animationContainer.querySelectorAll(".right-confetti");
 
 //!SECTION - ANIMATION FOR THE DIFFERENT CLASS NAMES OF THE OVERLAY
+let startTimeline;
+let winTimeline;
+let loseTimeline;
 
 function startOverlayAnimation() {
+  if (winTimeline) {
+    winTimeline.kill();
+  }
   starsSetUp(starsLeft, leftAnimationDiv);
   starsSetUp(starsRight, rightAnimationDiv);
-  gsap.set(
-    ".left-celebrate-wands, .right-celebrate-wands, .left-celebrate-stars, .right-celebrate-stars,.left-celebrate-wands2, .right-celebrate-wands2, .left-celebrate-stars2,.left-celebrate-stars3 .right-celebrate-stars2, .right-celebrate-stars3",
-    {
-      autoAlpha: 0,
-    },
-  );
+  gsap.set(".central-win-wand", {
+    autoAlpha: 0,
+  });
   gsap.set(
     ".left-stars-float, .right-stars-float, .left-stars-float2, .right-stars-float2, .left-stars-twinkle, .right-stars-twinkle",
     {
       autoAlpha: 1,
     },
   );
-  gsap
+
+  startTimeline = gsap
     .timeline()
     .to("#left-animation .left-stars-float", floatStarsConfig(-10, 50))
     .to("#right-animation .right-stars-float", floatStarsConfig(10, 50), "<")
@@ -228,15 +206,17 @@ function startOverlayAnimation() {
 }
 
 function winOverlayAnimation() {
-  winLoseSetup(resultsRight, rightAnimationDiv);
-  winLoseSetup(resultsLeft, leftAnimationDiv);
-
-  gsap.set(
-    ".left-celebrate-wands, .right-celebrate-wands, .left-celebrate-stars, .right-celebrate-stars,.left-celebrate-wands2, .right-celebrate-wands2, .left-celebrate-stars2,.left-celebrate-stars3 .right-celebrate-stars2, .right-celebrate-stars3",
-    {
-      autoAlpha: 1,
-    },
+  gsap.killTweensOf(
+    ".left-stars-float, .right-stars-float, .left-stars-float2, .right-stars-float2, .left-stars-twinkle, .right-stars-twinkle",
   );
+  if (startTimeline) {
+    startTimeline.kill();
+  }
+  winLoseSetup(leftConfetti, -20, 20, winWand);
+
+  gsap.set(".central-win-wand", {
+    autoAlpha: 1,
+  });
   gsap.set(
     ".left-stars-float, .right-stars-float, .left-stars-float2, .right-stars-float2, .left-stars-twinkle, .right-stars-twinkle",
     {
@@ -244,35 +224,13 @@ function winOverlayAnimation() {
     },
   );
 
-  gsap
-    .timeline()
-    .to("#left-animation .left-celebrate-wands", winLoseRotateConfig(360))
-    .to(
-      "#right-animation .right-celebrate-wands",
-      winLoseRotateConfig(360),
-      "<",
-    )
-
-    .to(
-      "#right-animation .right-celebrate-stars",
-      winLoseUpDownConfig(150),
-      "<",
-    )
-    .to("#left-animation .left-celebrate-stars", winLoseUpDownConfig(150), "<")
-    .to("#left-animation .left-celebrate-wands2", winLoseRotateConfig(360), "<")
-    .to(
-      "#right-animation .right-celebrate-wands2",
-      winLoseRotateConfig(360),
-      "<",
-    )
-    .to(
-      "#right-animation .right-celebrate-stars3",
-      winLoseUpDownConfig(-150),
-      "<",
-    )
-    .to(
-      "#left-animation .left-celebrate-stars3",
-      winLoseUpDownConfig(-150),
-      "<",
-    );
+  winTimeline = gsap.timeline().to(".central-win-wand", {
+    rotation: "+=360",
+    repeat: -1,
+    duration: 0.6,
+    ease: "none",
+  });
 }
+
+// app.js:36 Uncaught TypeError: Cannot read properties of undefined (reading 'handleKeyboardEvts')
+// at HTMLDocument.<anonymous> (app.js:36:10)Understand this error
