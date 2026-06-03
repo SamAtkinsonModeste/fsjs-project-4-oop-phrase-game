@@ -27,9 +27,9 @@ class Game {
     this.lives = document.querySelectorAll(".tries img");
     this.qwertyBtns = document.querySelectorAll(".key");
     this.xYCoordinates = [
-      { x: -1500, stagger: -0.1, ease: "bounce" },
+      { x: -1000, stagger: -0.1, ease: "bounce" },
       { y: 150, stagger: -0.1, ease: "bounce.in" },
-      { x: 1500, stagger: 0.1, ease: "bounce" },
+      { x: 1000, stagger: 0.1, ease: "bounce" },
       { y: -150, stagger: 0.1, ease: "bounce.in" },
     ];
   }
@@ -96,6 +96,7 @@ class Game {
         resultsMessageH1.textContent = "Victory to Voldermorts Team 😱";
         btnPlayAgain.style.transform = "translateY(150px)";
         btnPlayAgain.textContent = "Play Again?";
+        loseOverlayAnimation();
         this.gameReset();
       }, 1400);
     }
