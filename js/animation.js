@@ -21,7 +21,9 @@ const createSymbols = (num, side, className, symbol) => {
   for (let i = 0; i < num; i++) {
     const container = document.createElement("span");
     container.className = className;
-    container.textContent = symbol;
+    if (symbol) {
+      container.textContent = symbol;
+    }
     side.append(container);
   }
 };
@@ -32,22 +34,20 @@ const createSymbols = (num, side, className, symbol) => {
  * @param {HTMLElement} container Container used for random positioning
  */
 const starsSetUp = (elements, container) => {
-  elements.forEach((star) => {
-    randomPositions(container, star);
-    randomValues(star);
+  elements.forEach((element) => {
+    randomPositions(container, element);
+    randomValues(element);
   });
 };
 
 /**
- * Sets up win / lose particles with random positions
- * @param {NodeList} particles Collection of particles to position
- * @param {number} min Minimum random position value
- * @param {number} max Maximum random position value
- * @param {HTMLElement} element Container or element used for positioning
+ * Sets up a group of confetti with random X positions
+ * @param {NodeList} elements Collection of confetti elements to set up
+ * @param {HTMLElement} container Container used for random positioning
  */
-const winLoseSetup = (particles, min, max, element) => {
-  particles.forEach((particle) => {
-    winLoseRandomPositions(min, max, element, particle);
+const confettiSetUp = (elements, container) => {
+  elements.forEach((element) => {
+    randomXPositions(container, element);
   });
 };
 
@@ -67,27 +67,6 @@ function randomPositions(container, element) {
 }
 
 /**
- * Generates random positions for win / lose particles
- * @param {number} min Minimum random position value
- * @param {number} max Maximum random position value
- * @param {HTMLElement} element Element used as the position reference
- * @param {HTMLElement} particle Particle element being positioned
- */
-function winLoseRandomPositions(min, max, element, particle) {
-  const positionX = Math.floor(Math.random() * (max - min) + min);
-  const positionY = Math.floor(Math.random() * (max - min) + min);
-  const elementX = element.offsetLeft;
-  const elementY = element.offsetTop;
-  const particleX = positionX;
-  const particleY = positionY;
-  const finalX = elementX + particleX;
-  const finalY = elementY + particleY;
-
-  particle.style.left = finalX + "px";
-  particle.style.top = finalY + "px";
-}
-
-/**
  * Applies random visual values to a star element
  * @param {HTMLElement} element
  */
@@ -101,6 +80,18 @@ function randomValues(element) {
   const fontSize = randomFontNumber + "rem";
   element.style.fontSize = fontSize;
   element.style.opacity = randomOpacityNumber;
+}
+
+/**
+ * Gives one element a random X axis position inside a container
+ * @param {HTMLElement} container Container used to calculate the random position
+ * @param {HTMLElement} element Element that will receive the random position
+ */
+
+function randomXPositions(container, element) {
+  const positionX = Math.floor(Math.random() * container.offsetWidth);
+  const side = positionX + "px";
+  element.style.left = side;
 }
 
 /**
@@ -152,6 +143,78 @@ function twinkleStarsConfig() {
   };
 }
 
+//!SECTION - Win Lose GSAP Configs
+
+function confettiFromConfigs() {
+  return {
+    y: 0,
+    rotation: 0,
+    opacity: 1,
+  };
+}
+
+function confettiToConfigs() {
+  return {
+    y: 900,
+    rotation: 360,
+    keyframes: [
+      { opacity: 0.8 },
+      { opacity: 0.9 },
+      { opacity: 1 },
+      { opacity: 0 },
+    ],
+    repeat: -1,
+    stagger: 0.08,
+    ease: "none",
+    duration: 3,
+  };
+}
+
+function skullFromConfigs() {
+  return {
+    y: 0,
+    rotation: 0,
+    opacity: 0,
+    scale: 0,
+  };
+}
+
+function skullToConfigs() {
+  return {
+    y: 900,
+    rotation: 360,
+    keyframes: [
+      { opacity: 0.8 },
+      { opacity: 0.9 },
+      { opacity: 1 },
+      { opacity: 0 },
+    ],
+    scale: 2.8,
+    repeat: -1,
+    stagger: 0.7,
+    ease: "none",
+    duration: 3,
+  };
+}
+
+function skullNoRotateToConfigs() {
+  return {
+    y: 900,
+    rotation: 0,
+    keyframes: [
+      { opacity: 0.8 },
+      { opacity: 0.9 },
+      { opacity: 1 },
+      { opacity: 0 },
+    ],
+    scale: 2.8,
+    repeat: -1,
+    stagger: 0.7,
+    ease: "power1.in",
+    duration: 3,
+  };
+}
+
 //!SECTION - CALLING createSymbols FUNCTION - START STARS EMOJIS
 createSymbols(20, leftAnimationDiv, "stars left-stars-float", "✷");
 createSymbols(20, leftAnimationDiv, "stars left-stars-float2", "✷");
@@ -160,34 +223,47 @@ createSymbols(20, rightAnimationDiv, "stars right-stars-float", "✷");
 createSymbols(20, rightAnimationDiv, "stars right-stars-float2", "✷");
 createSymbols(30, rightAnimationDiv, "stars right-stars-twinkle", "✷");
 
-//!SECTION - CALLING  createSymbols FUNCTION - WIN EMOJIS
-createSymbols(1, animationContainer, "results central-win-wand", "🪄");
-createSymbols(10, animationContainer, "results left-confetti");
-createSymbols(10, animationContainer, "results center-confetti");
-createSymbols(10, animationContainer, "results right-confetti");
+//!SECTION - CALLING  createSymbols FUNCTION - WIN CONFETTI
+createSymbols(40, animationContainer, "confetti gold");
+createSymbols(40, animationContainer, "confetti gold2");
+createSymbols(40, animationContainer, "confetti gold3");
 
-//!SECTION - VARIABLES FROM CREATED STARS & HELPER FUNCTION STARSETUP
+//!SECTION - CALLING  createSymbols FUNCTION - LOSE CONFETTI
+createSymbols(40, animationContainer, "confetti skull-bones", "☠️");
+createSymbols(40, animationContainer, "confetti skull-fire", "💀");
+createSymbols(40, animationContainer, "confetti skull-bones2", "☠️");
+createSymbols(40, animationContainer, "confetti skull-fire2", "💀");
+//!SECTION - VARIABLES FROM CREATED STARS
 const starsLeft = leftAnimationDiv.querySelectorAll(".stars");
 const starsRight = rightAnimationDiv.querySelectorAll(".stars");
-const winWand = animationContainer.querySelector(".central-win-wand");
-const leftConfetti = animationContainer.querySelectorAll(".left-confetti");
-const centerConfetti = animationContainer.querySelectorAll(".center-confetti");
-const rightConfetti = animationContainer.querySelectorAll(".right-confetti");
+
+//!SECTION - VARIABLES FROM CREATED GOLD & SKULL CONFETTI
+const gold = animationContainer.querySelectorAll(".gold");
+const gold2 = animationContainer.querySelectorAll(".gold2");
+const gold3 = animationContainer.querySelectorAll(".gold3");
+const bones = animationContainer.querySelectorAll(".skull-bones");
+const fire = animationContainer.querySelectorAll(".skull-fire");
+const bones2 = animationContainer.querySelectorAll(".skull-bones2");
+const fire2 = animationContainer.querySelectorAll(".skull-fire2");
 
 //!SECTION - ANIMATION FOR THE DIFFERENT CLASS NAMES OF THE OVERLAY
 let startTimeline;
 let winTimeline;
 let loseTimeline;
 
+//START
 function startOverlayAnimation() {
   if (winTimeline) {
     winTimeline.kill();
   }
   starsSetUp(starsLeft, leftAnimationDiv);
   starsSetUp(starsRight, rightAnimationDiv);
-  gsap.set(".central-win-wand", {
-    autoAlpha: 0,
-  });
+  gsap.set(
+    ".gold, .gold2, .gold3, .skull-bones, .skull-bones2, .skull-fire, .skull-fire2",
+    {
+      autoAlpha: 0,
+    },
+  );
   gsap.set(
     ".left-stars-float, .right-stars-float, .left-stars-float2, .right-stars-float2, .left-stars-twinkle, .right-stars-twinkle",
     {
@@ -205,31 +281,74 @@ function startOverlayAnimation() {
     .to("#right-animation .right-stars-twinkle", twinkleStarsConfig(), "<");
 }
 
+// Win
+
 function winOverlayAnimation() {
   gsap.killTweensOf(
-    ".left-stars-float, .right-stars-float, .left-stars-float2, .right-stars-float2, .left-stars-twinkle, .right-stars-twinkle",
+    ".left-stars-float, .right-stars-float, .left-stars-float2, .right-stars-float2, .left-stars-twinkle, .right-stars-twinkle, .skull-bones, .skull-bones2, .skull-fire, .skull-fire2",
   );
   if (startTimeline) {
     startTimeline.kill();
   }
-  winLoseSetup(leftConfetti, -20, 20, winWand);
 
-  gsap.set(".central-win-wand", {
-    autoAlpha: 1,
-  });
+  confettiSetUp(gold, animationContainer);
+  confettiSetUp(gold2, animationContainer);
+  confettiSetUp(gold3, animationContainer);
+
   gsap.set(
-    ".left-stars-float, .right-stars-float, .left-stars-float2, .right-stars-float2, .left-stars-twinkle, .right-stars-twinkle",
+    ".left-stars-float, .right-stars-float, .left-stars-float2, .right-stars-float2, .left-stars-twinkle, .right-stars-twinkle, .skull-bones, .skull-bones2, .skull-fire, .skull-fire2",
     {
       autoAlpha: 0,
     },
   );
 
-  winTimeline = gsap.timeline().to(".central-win-wand", {
-    rotation: "+=360",
-    repeat: -1,
-    duration: 0.6,
-    ease: "none",
+  gsap.set(".gold, .gold2, .gold3", {
+    autoAlpha: 1,
   });
+
+  winTimeline = gsap
+    .timeline()
+    .fromTo(".gold", confettiFromConfigs(), confettiToConfigs())
+    .fromTo(".gold2", confettiFromConfigs(), confettiToConfigs(), "<")
+    .fromTo(".gold3", confettiFromConfigs(), confettiToConfigs(), "<");
+}
+
+// LOSE
+function loseOverlayAnimation() {
+  gsap.killTweensOf(
+    ".left-stars-float, .right-stars-float, .left-stars-float2, .right-stars-float2, .left-stars-twinkle, .right-stars-twinkle,.gold, .gold2, .gold3 ",
+  );
+  if (startTimeline) {
+    startTimeline.kill();
+  }
+
+  confettiSetUp(bones, animationContainer);
+  confettiSetUp(fire, animationContainer);
+  confettiSetUp(bones2, animationContainer);
+  confettiSetUp(fire2, animationContainer);
+
+  gsap.set(
+    ".left-stars-float, .right-stars-float, .left-stars-float2, .right-stars-float2, .left-stars-twinkle, .right-stars-twinkle,.gold, .gold2, .gold3",
+    {
+      autoAlpha: 0,
+    },
+  );
+
+  gsap.set(".skull-bones, .skull-bones2, .skull-fire, .skull-fire2", {
+    autoAlpha: 1,
+  });
+
+  loseTimeline = gsap
+    .timeline()
+    .fromTo(".skull-bones", skullFromConfigs(), skullToConfigs())
+    .fromTo(".skull-fire", skullFromConfigs(), skullNoRotateToConfigs(), "<1.5")
+    .fromTo(".skull-bones2", skullFromConfigs(), skullToConfigs(), "<1.5")
+    .fromTo(
+      ".skull-fire2",
+      skullFromConfigs(),
+      skullNoRotateToConfigs(),
+      "<1.5",
+    );
 }
 
 // app.js:36 Uncaught TypeError: Cannot read properties of undefined (reading 'handleKeyboardEvts')
