@@ -350,6 +350,3 @@ function loseOverlayAnimation() {
       "<1.5",
     );
 }
-
-// app.js:36 Uncaught TypeError: Cannot read properties of undefined (reading 'handleKeyboardEvts')
-// at HTMLDocument.<anonymous> (app.js:36:10)Understand this error
