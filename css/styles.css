@@ -268,15 +268,17 @@ span.letter {
 #right-animation {
   position: relative;
   /* border: solid lightsalmon 2px; */
+}
+
+#left-animation,
+#right-animation {
   width: 25vw;
 }
 
+
+
 span.stars,
-span.results,
-span.central-win-wand,
-span.left-confetti,
-span.center-confetti,
-span.right-confetti {
+span.confetti {
   position: absolute;
   display: inline-block;
 
@@ -296,44 +298,40 @@ span.stars {
   /* border: solid 1px #07d999; */
 }
 
-span.central-win-wand,
-span.left-confetti,
-span.center-confetti,
-span.right-confetti {
-  top: 120px;
+span.confetti {
+  top: -50px;
+  width: 12px;
+  height: 12px;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, .5);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, .8);
+
 }
 
-span.central-win-wand {
-  left: 40%;
-  font-size: 4rem;
-  font-weight: bold;
-  background: linear-gradient(230deg,
-      #fffef7 0%,
-      #fff7a8 15%,
-      #ffd700 50%,
-      #5d3b17 65%,
-      #130c04 100%);
-
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  filter:
-    drop-shadow(0 0 2px rgba(255, 247, 168, .9)) drop-shadow(0 0 6px rgba(255, 215, 0, .8)) drop-shadow(0 0 12px rgba(255, 215, 0, .5)) drop-shadow(0 0 20px rgba(255, 215, 0, .3));
+span.gold,
+span.gold2,
+span.gold3 {
+  background-image: url("../images/confetti.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
 }
 
 
-span.left-confetti,
-span.center-confetti,
-span.right-confetti {
-  background: linear-gradient(135deg,
-      #fffef5 0%,
-      #ffe96b 20%,
-      #ffd700 45%,
-      #fff7b8 65%,
-      #ffbf00 100%);
-  filter:
-    drop-shadow(0 0 2px #fff7b8) drop-shadow(0 0 6px #ffd700);
+
+span.skull-bones,
+span.skull-bones2,
+span.skull-fire,
+span.skull-fire2 {
+  font-size: 1.2rem;
+  text-shadow:
+    1px 1px 2px rgba(0, 0, 0, .9),
+    0 0 2px rgba(0, 0, 0, .7);
+
 }
+
+
+
+
 
 
 
