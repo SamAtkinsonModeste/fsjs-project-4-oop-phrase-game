@@ -33,6 +33,8 @@ document.addEventListener("keydown", (evt) => {
   if (evt.code.startsWith("K")) {
     console.log(evt.key);
     const characterKey = evt.key;
-    game.handleKeyboardEvts(characterKey);
+    if (game) {
+      game.handleKeyboardEvts(characterKey);
+    }
   }
 });
