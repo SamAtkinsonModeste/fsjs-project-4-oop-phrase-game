@@ -112,6 +112,7 @@ button {
 }
 
 .main-container {
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -128,6 +129,41 @@ button {
   width: 100%;
   padding: 10px;
 }
+
+/* Music control button*/
+button#music-control {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  top: 10px;
+  left: 10px;
+  z-index: 9999;
+
+  width: 195px;
+  /* height: auto; */
+  margin: 0;
+  padding: 8px;
+
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  text-shadow: none;
+  cursor: pointer;
+}
+
+button#music-control #sound-image {
+  display: block;
+  width: 100%;
+}
+
+button#music-control #sound-text {
+  margin: 0;
+  font-size: 1.6rem;
+  color: var(--color-keys-light);
+}
+
+
+
 
 
 
@@ -278,11 +314,12 @@ span.letter {
 
 
 span.stars,
-span.confetti {
+span.confetti,
+#music-control {
   position: absolute;
   display: inline-block;
-
 }
+
 
 span.stars {
   color: var(--color-win);
