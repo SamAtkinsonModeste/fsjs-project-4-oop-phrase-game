@@ -4,21 +4,64 @@
 let game;
 const startBtn = document.querySelector("#btn__reset");
 const qwertySection = document.querySelector("#qwerty");
+const overlayDiv = document.querySelector("#overlay");
+const musicBtn = document.querySelector("#music-control-Btn");
+const musicBtnP = musicBtn.querySelector("#sound-text");
+const musicBtnImg = musicBtn.querySelector("img");
+const titleH2 = document.querySelector(".title");
+const titleSpan = titleH2.querySelector(".title-line-2");
+const startMusic = new Audio("../audio/start-game.mp3");
+let soundMuted = false;
+
 let gameIndex = 0;
 
-startOverlayAnimation();
+musicBtn.addEventListener("click", () => {
+  if (!soundMuted) {
+    soundMuted = true;
+    startMusic.muted = true;
+    if (game) {
+      game.allSounds.forEach((sound) => {
+        sound.muted = true;
+      });
+    }
+
+    musicBtnP.textContent = "Click to unmute sound";
+    musicBtnImg.src = "images/magic-speaker-off.svg";
+  } else {
+    soundMuted = false;
+    startMusic.muted = false;
+    if (game) {
+      game.allSounds.forEach((sound) => {
+        sound.muted = false;
+      });
+    }
+    musicBtnP.textContent = "Click to mute sound";
+    musicBtnImg.src = "images/magic-speaker-on.svg";
+  }
+});
 
 startBtn.addEventListener("click", (evt) => {
-  console.log(evt.target);
-  game = new Game();
-  game.startGame(gameIndex);
-  console.log(game.activePhrase);
-  console.log(game.xYCoordinates);
-  console.log(gameIndex);
-  if (gameIndex !== game.xYCoordinates.length - 1) {
-    gameIndex++;
+  if (overlayDiv.className === "welcome") {
+    startOverlayAnimation();
+    musicBtn.style.display = "flex";
+    startMusic.loop = true;
+    startMusic.play();
+    overlayDiv.className = "start";
+    startBtn.textContent = "Start Game";
+    titleH2.innerHTML = `Harry Potter <br><span class="title-line-2">Wizard Word Duel</span>`;
   } else {
-    gameIndex = 0;
+    game = new Game();
+    game.startGame(gameIndex);
+    startMusic.pause();
+    startMusic.currentTime = 0;
+    console.log(game.activePhrase);
+    console.log(game.xYCoordinates);
+    console.log(gameIndex);
+    if (gameIndex !== game.xYCoordinates.length - 1) {
+      gameIndex++;
+    } else {
+      gameIndex = 0;
+    }
   }
 });
 
