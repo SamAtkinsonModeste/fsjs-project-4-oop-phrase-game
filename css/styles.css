@@ -100,7 +100,7 @@ button {
   text-shadow: 0 2px 2px #010806;
   border: solid #010806 2px;
   letter-spacing: 0.200rem;
-  z-index: 999;
+  z-index: 400;
 }
 
 #btn__reset:active {
@@ -131,13 +131,13 @@ button {
 }
 
 /* Music control button*/
-button#music-control {
+button#music-control-Btn {
   position: fixed;
-  display: flex;
+  display: none;
   flex-direction: column;
-  top: 10px;
+  bottom: 0;
   left: 10px;
-  z-index: 9999;
+  z-index: 400;
 
   width: 195px;
   /* height: auto; */
@@ -151,12 +151,12 @@ button#music-control {
   cursor: pointer;
 }
 
-button#music-control #sound-image {
+button#music-control-Btn #sound-image {
   display: block;
   width: 100%;
 }
 
-button#music-control #sound-text {
+button#music-control-Btn #sound-text {
   margin: 0;
   font-size: 1.6rem;
   color: var(--color-keys-light);
@@ -285,7 +285,7 @@ span.letter {
   left: 0;
   right: 0;
   border-radius: 5px;
-  z-index: 888;
+  z-index: 300;
 }
 
 
@@ -296,7 +296,6 @@ span.letter {
   width: 100vw;
   justify-content: space-between;
   height: 100vh;
-  /* z-index: 1; */
   /* border: solid red 2px; */
 }
 
@@ -315,7 +314,7 @@ span.letter {
 
 span.stars,
 span.confetti,
-#music-control {
+#music-control-Btn {
   position: absolute;
   display: inline-block;
 }
@@ -392,7 +391,7 @@ span.skull-fire2 {
   line-height: 80px;
 }
 
-.title-line-2 {
+#overlay.start .title-line-2 {
   display: inline;
   text-shadow: 0 1px #060135,
     0 2px #0d0b40,
@@ -413,6 +412,30 @@ span.skull-fire2 {
 .header {
   text-transform: uppercase;
 }
+
+.welcome {
+  background-color: #3a3f58;
+  background-image: url("../images/welcome-enter.webp");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+
+}
+
+#overlay.welcome #btn__reset {
+  width: 250px;
+  background: var(--color-win);
+  color: var(--color-keys);
+  box-shadow: inset 0 0 7px 2px var(--color-keys);
+}
+
+
+#overlay.welcome #btn__reset:active {
+  background: var(--color-dark-blue);
+  color: var(--color-win);
+  box-shadow: inset 0 0 7px 2px var(--color-keys);
+}
+
 
 .start {
   background-color: #3a3f58;
@@ -462,6 +485,12 @@ span.skull-fire2 {
   box-shadow: inset 0 0 7px 2px var(--color-keys);
 }
 
+.win #btn__reset:active {
+  background: var(--color-dark-blue);
+  color: var(--color-win);
+  box-shadow: inset 0 0 7px 2px var(--color-keys);
+}
+
 
 
 
@@ -501,6 +530,12 @@ span.skull-fire2 {
   background: var(--color-lose);
   color: var(--color-white);
   box-shadow: inset 0 0 7px 2px #e1eef4;
+}
+
+.lose #btn__reset:active {
+  background: var(--color-white);
+  color: var(--color-lose);
+  box-shadow: inset 0 0 7px 2px rgba(252, 1, 1, 0.8);
 }
 
 
