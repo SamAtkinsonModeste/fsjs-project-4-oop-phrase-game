@@ -10,7 +10,7 @@ const musicBtnP = musicBtn.querySelector("#sound-text");
 const musicBtnImg = musicBtn.querySelector("img");
 const titleH2 = document.querySelector(".title");
 const titleSpan = titleH2.querySelector(".title-line-2");
-const startMusic = new Audio("../audio/start-game.mp3");
+const startMusic = new Audio("/audio/start-game.mp3");
 let soundMuted = false;
 
 let gameIndex = 0;
