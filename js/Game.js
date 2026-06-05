@@ -33,10 +33,10 @@ class Game {
       { y: -150, stagger: 0.1, ease: "bounce.in" },
     ];
 
-    this.keyBtnSounds = new Audio("../audio/key-button-sounds.mp3");
-    this.wandBreaksSound = new Audio("../audio/wand-breaks.mp3");
-    this.loseGameSound = new Audio("../audio/lose-game.mp3");
-    this.winGameSound = new Audio("../audio/win-game.mp3");
+    this.keyBtnSounds = new Audio("audio/key-button-sounds.mp3");
+    this.wandBreaksSound = new Audio("audio/wand-breaks.mp3");
+    this.loseGameSound = new Audio("audio/lose-game.mp3");
+    this.winGameSound = new Audio("audio/win-game.mp3");
 
     this.allSounds = [
       this.keyBtnSounds,
