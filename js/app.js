@@ -50,13 +50,16 @@ startBtn.addEventListener("click", (evt) => {
     startBtn.textContent = "Start Game";
     titleH2.innerHTML = `Harry Potter <br><span class="title-line-2">Wizard Word Duel</span>`;
   } else {
+    if (game) {
+      game.gameReset();
+    }
     game = new Game();
     game.startGame(gameIndex);
     startMusic.pause();
     startMusic.currentTime = 0;
-    console.log(game.activePhrase);
-    console.log(game.xYCoordinates);
-    console.log(gameIndex);
+
+    // Keep track of animation direction between games because
+    // a new Game object is created every round which resets class properties
     if (gameIndex !== game.xYCoordinates.length - 1) {
       gameIndex++;
     } else {
@@ -74,7 +77,6 @@ qwertySection.addEventListener("click", (evt) => {
 
 document.addEventListener("keydown", (evt) => {
   if (evt.code.startsWith("K")) {
-    console.log(evt.key);
     const characterKey = evt.key;
     if (game) {
       game.handleKeyboardEvts(characterKey);
